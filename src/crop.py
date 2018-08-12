@@ -115,12 +115,14 @@ def processSides(sides, isOdd):
     temp = left
     left = right
     right = temp
-  if isOdd:
-    leftBorder = max(left[0][0], left[3][0]) - borderWidth
-    rightBorder = min(right[0][0], right[3][0]) - borderWidth
+  if not isOdd:
+    # workaround to fix misplacement: (a) odd and even were swapped, and
+    # (b) side stickers were not placed along the gutter
+    leftBorder = 400
+    rightBorder = min(left[0][0], left[3][0]) - borderWidth
   else:
-    leftBorder = max(left[1][0], left[2][0]) + borderWidth
-    rightBorder = min(right[1][0], right[2][0]) + borderWidth
+    leftBorder = max(right[1][0], right[2][0]) + borderWidth
+    rightBorder = 3350
   return int(leftBorder), int(rightBorder)
 
 # Take the two top/bottom tokens and figure out which is the top and
